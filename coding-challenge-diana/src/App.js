@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.sass";
-import StoryCard from "./components/StoryCard.js";
+import StoryCard from "./components/StoryCard/StoryCard";
 import ClipLoader from "react-spinners/ClipLoader";
 
 const App = () => {
@@ -23,7 +23,6 @@ const App = () => {
     if (topStoriesIds.length !== 0) {
       for (let i = 0; i < 10; i++) {
         const num = Math.floor(Math.random() * topStoriesIds.length);
-        // setRandomIds((randomIds) => [...randomIds, topStoriesIds[num]]);
         fetch(
           `https://hacker-news.firebaseio.com/v0/item/${topStoriesIds[num]}.json`
         )
@@ -40,7 +39,7 @@ const App = () => {
   }, [topStoriesIds]);
 
   useEffect(() => {
-    if (randomStories.length !== 0) {
+    if (randomStories.length === 10) {
       for (let i = 0; i < randomStories.length; i++) {
         fetch(
           `https://hacker-news.firebaseio.com/v0/user/${randomStories[i].by}.json`
@@ -51,9 +50,16 @@ const App = () => {
           .then((user) => {
             setUsers((users) => [...users, user]);
           });
+        // .then(() => {
+        //   const sorted = [...randomStories].sort((a, b) => {
+        //     return a.score - b.score;
+        //   });
+        //   setRandomStories(sorted);
+        // });
       }
     }
   }, [randomStories]);
+  console.log(randomStories);
 
   if (randomStories.length !== 10)
     return (
