@@ -1,28 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {
-  FcLike,
-  FcCalendar,
-  FcManager,
-  FcCloseUpMode,
-  FcLink,
-} from "react-icons/fc";
+import { FcLike, FcCalendar, FcManager, FcCloseUpMode } from "react-icons/fc";
 import { BsBoxArrowUpRight } from "react-icons/bs";
-import NewsImage from "../../news.jpg";
 import "./StoryCard.sass";
 
-const StoryCard = ({ randomStory, users }) => {
-  const [user, setUser] = useState("");
+const StoryCard = ({ randomStory }) => {
   const time = randomStory.time;
   const dateObject = new Date(time * 1000);
   const timestamp = dateObject.toLocaleString("en-EN", { dateStyle: "long" });
-
-  useEffect(() => {
-    for (let i = 0; i < users.length; i++) {
-      if (users[i].id === randomStory.by) {
-        setUser(users[i]);
-      }
-    }
-  }, [randomStory.by, users]);
 
   return (
     <div className="card">
@@ -50,11 +34,11 @@ const StoryCard = ({ randomStory, users }) => {
           <div className="card-bottom-right">
             <p>
               <FcManager />
-              {user.id}
+              {randomStory.by}
             </p>
             <p>
               <FcCloseUpMode />
-              {user.karma}
+              {randomStory.authorKarma}
             </p>
           </div>
         </div>

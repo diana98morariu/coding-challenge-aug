@@ -3,63 +3,45 @@ import "./App.sass";
 import StoryCard from "./components/StoryCard/StoryCard";
 import ClipLoader from "react-spinners/ClipLoader";
 
+const topStoriesUrl = "https://hacker-news.firebaseio.com/v0/topstories.json";
+const randomStories = [];
+
+async function getAndSortData() {
+  const apiCallIds = await fetch(topStoriesUrl);
+  const ids = await apiCallIds.json();
+  if (ids) {
+    for (let i = 0; i < 10; i++) {
+      var num = Math.floor(Math.random() * ids.length);
+      const apiCallStories = await fetch(
+        `https://hacker-news.firebaseio.com/v0/item/${ids[num]}.json`
+      );
+      const story = await apiCallStories.json();
+      if (story) {
+        randomStories.push(story);
+        const apiCallUsers = await fetch(
+          `https://hacker-news.firebaseio.com/v0/user/${story.by}.json`
+        );
+        const user = await apiCallUsers.json();
+        if (user) {
+          randomStories[i].authorKarma = user.karma;
+        }
+      }
+    }
+  }
+  randomStories.sort((a, b) => (a.score > b.score ? 1 : -1));
+  return randomStories;
+}
+
 const App = () => {
-  const topStoriesUrl = "https://hacker-news.firebaseio.com/v0/topstories.json";
-  const [topStoriesIds, setTopStoriesIds] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [randomStories, setRandomStories] = useState([]);
+  const [stories, setStories] = useState([]);
 
   useEffect(() => {
-    fetch(topStoriesUrl)
-      .then((response) => {
-        return response.json();
-      })
-      .then((ids) => {
-        setTopStoriesIds(ids);
-      });
+    async function fetchData() {
+      const data = await getAndSortData();
+      setStories(data);
+    }
+    fetchData();
   }, []);
-
-  useEffect(() => {
-    if (topStoriesIds.length !== 0) {
-      for (let i = 0; i < 10; i++) {
-        const num = Math.floor(Math.random() * topStoriesIds.length);
-        fetch(
-          `https://hacker-news.firebaseio.com/v0/item/${topStoriesIds[num]}.json`
-        )
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            }
-          })
-          .then((story) => {
-            setRandomStories((randomStories) => [...randomStories, story]);
-          });
-      }
-    }
-  }, [topStoriesIds]);
-
-  useEffect(() => {
-    if (randomStories.length === 10) {
-      for (let i = 0; i < randomStories.length; i++) {
-        fetch(
-          `https://hacker-news.firebaseio.com/v0/user/${randomStories[i].by}.json`
-        )
-          .then((response) => {
-            return response.json();
-          })
-          .then((user) => {
-            setUsers((users) => [...users, user]);
-          });
-        // .then(() => {
-        //   const sorted = [...randomStories].sort((a, b) => {
-        //     return a.score - b.score;
-        //   });
-        //   setRandomStories(sorted);
-        // });
-      }
-    }
-  }, [randomStories]);
-  console.log(randomStories);
 
   if (randomStories.length !== 10)
     return (
@@ -73,10 +55,10 @@ const App = () => {
         <h1>Hacker News</h1>
 
         <div className="stories-container">
-          {randomStories.map((randomStory) => {
+          {stories.map((randomStory) => {
             return (
               <div className="story-card" key={randomStory.id}>
-                <StoryCard randomStory={randomStory} users={users} />
+                <StoryCard randomStory={randomStory} />
               </div>
             );
           })}
