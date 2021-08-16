@@ -1,4 +1,4 @@
-# Getting Started with My React App
+# Coding challenge for Merkle
 
 This project was created for Merkle. It contains 10 random Hacker News in an ascending order by their score.
 
