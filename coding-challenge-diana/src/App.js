@@ -43,17 +43,10 @@ const App = () => {
     fetchData();
   }, []);
 
-  if (randomStories.length !== 10)
-    return (
-      <div className="loading">
-        <ClipLoader size={50} color={"#e83251"} />
-      </div>
-    );
-  else {
-    return (
-      <div className="App">
-        <h1>Hacker News</h1>
-
+  return (
+    <div className="App">
+      <h1>Hacker News</h1>
+      {stories.length === 10 ? (
         <div className="stories-container">
           {stories.map((randomStory) => {
             return (
@@ -63,8 +56,12 @@ const App = () => {
             );
           })}
         </div>
-      </div>
-    );
-  }
+      ) : (
+        <div className="loading">
+          <ClipLoader size={50} color={"#e83251"} />
+        </div>
+      )}
+    </div>
+  );
 };
 export default App;

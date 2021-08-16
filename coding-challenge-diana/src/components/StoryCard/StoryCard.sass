@@ -1,32 +1,90 @@
+$breakpoint-tablet: 765px
+$breakpoint-desktop: 960px
+
+//////////////////mobile version/////////////////////
 .card
     margin: 0 auto
     margin-bottom: 20px
     text-align: left
     display: flex
     width: 90%
+    height: auto
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px
     border-radius: 10px
     padding: 10px
+    
 .image-container
     background-image: url("../../news.jpg")
     background-repeat: no-repeat
     background-position: center
-    background-size: 100%
-    width: 200px
-    height: auto
+    background-size: contain
+    width: 120px
+    height: 100px
 .text-container 
     width: 80%
+    position: relative
 .link
     margin-left: 10px
+.card-bottom
+    position: absolute
+    bottom:0px
+    left:0px
+    right: 0px
 .card-bottom-left
     display: flex
     justify-content: space-between
-.card-bottom-left p 
-    margin-bottom: 10px
-    
+.text
+    display: flex
+    font-size: 13px
+    color: rgb(82, 82, 82)
 .card-bottom-right
     display: flex
     justify-content: space-between
-.card-bottom-right p 
-    margin: 0px
+.icon 
+    padding: 2px 5px 0 0
+
+//////////////////tablet version/////////////////////
+@media (min-width: $breakpoint-tablet) and (max-width: #{$breakpoint-desktop - 1px})
+    .image-container
+        width: 100px
+        height: 80px
+    .card-bottom
+        display: flex
+        justify-content: space-between
+    .card-bottom-left
+        width: 35%
+        justify-content: space-between
+    .card-bottom-right
+        width: 35%
+        justify-content: space-between
+    .card-bottom-left p 
+        margin-bottom: 0
+    .card-bottom-right p 
+        margin-bottom: 0
+    .text
+        font-size: 14px
+   
+
+//////////////////descktop version/////////////////////
+@media (min-width: $breakpoint-desktop)
+    .card
+        width: 60%
+    .image-container
+        width: 100px
+        height: 80px
+    .card-bottom
+      display: flex
+      justify-content: space-between
+    .card-bottom-left
+        width: 40%
+        justify-content: space-between
+    .card-bottom-right
+        width: 40%
+        justify-content: space-between
+    .card-bottom-left p 
+        margin-bottom: 0
+    .card-bottom-right p 
+        margin-bottom: 0
+    .text
+        font-size: 14px
     

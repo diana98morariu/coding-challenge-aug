@@ -1,12 +1,28 @@
+$breakpoint-phone-large: 450px
+$breakpoint-tablet: 765px
+$breakpoint-desktop: 960px
+
 .App 
   text-align: center
+.text
+  font-size: 13px
 h2
-    font-size: 16px
-    font-weight: 500
-p
-    font-size: 14px
+  font-size: 13px
+  font-weight: 500
+  margin-top: 0
 a
-  font-size: 14px
+  font-size: 13px
   color: rgb(77, 146, 236)
   text-decoration: none
 
+@media (min-width: $breakpoint-phone-large)
+  .App, h2, a
+    font-size: 14px
+
+@media (min-width: $breakpoint-tablet) and (max-width: #{$breakpoint-desktop - 1px})
+  .App, h2, a
+    font-size: 16px
+
+@media (min-width: $breakpoint-desktop)
+  .App, h2, a
+    font-size: 16px

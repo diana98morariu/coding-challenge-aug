@@ -14,7 +14,12 @@ const StoryCard = ({ randomStory }) => {
       <div className="text-container">
         <h2>
           {randomStory.title}
-          <a className="link" href={randomStory.url}>
+          <a
+            className="link"
+            href={randomStory.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Go to source
             <BsBoxArrowUpRight />
           </a>
@@ -22,24 +27,32 @@ const StoryCard = ({ randomStory }) => {
 
         <div className="card-bottom">
           <div className="card-bottom-left">
-            <p>
-              <FcLike />
+            <div className="text" title="Score">
+              <div className="icon">
+                <FcLike />
+              </div>
               {randomStory.score}
-            </p>
-            <p>
-              <FcCalendar />
+            </div>
+            <div className="text" title="Timestamp">
+              <div className="icon">
+                <FcCalendar />
+              </div>
               {timestamp}
-            </p>
+            </div>
           </div>
           <div className="card-bottom-right">
-            <p>
-              <FcManager />
+            <div className="text" title="Author">
+              <div className="icon">
+                <FcManager />
+              </div>
               {randomStory.by}
-            </p>
-            <p>
-              <FcCloseUpMode />
+            </div>
+            <div className="text" title="Author karma">
+              <div className="icon">
+                <FcCloseUpMode />
+              </div>
               {randomStory.authorKarma}
-            </p>
+            </div>
           </div>
         </div>
       </div>
