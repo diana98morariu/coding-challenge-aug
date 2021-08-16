@@ -1,10 +1,16 @@
-# Getting Started with Create React App
+# Getting Started with My React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was created for Merkle. It contains 10 random Hacker News in an ascending order by their score.\
+
+The code fetches the stories from the Hacker News API. First, it fetches the IDs of the top stories and then it selects 10 random ones. Those are then looped so that they can be individually fetched. To be able to get the information from the user, in the loop, the authors of the specific stories are then fetched and added into the array. The stories are randomized every time you refresh the page.\
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm install`
+
+Installs all dependencies.\
 
 ### `npm start`
 
