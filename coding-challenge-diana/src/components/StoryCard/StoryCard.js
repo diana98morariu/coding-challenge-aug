@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { FcLike, FcCalendar, FcManager, FcCloseUpMode } from "react-icons/fc";
 import { BsBoxArrowUpRight } from "react-icons/bs";
 import "./StoryCard.sass";
